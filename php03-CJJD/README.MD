@@ -1,131 +1,15 @@
-1. drinkMember (멤버 테이블)
+# 메인페이지 미리보기
 
-<?php
+<img src="./assets/img/mainpage.png" alt="">
 
-    include "../connect/connect.php";
+# 사이트 소개
 
-    $sql = "create table drinkMember(";
-    $sql .= "myMemberId int(10) unsigned auto_increment,";
-    $sql .= "youId varchar(20) NOT NULL,";
-    $sql .= "youPass varchar(20) NOT NULL,";
-    $sql .= "youName varchar(5) NOT NULL,";
-    $sql .= "youNick varchar(10) NOT NULL,";
-    $sql .= "youEmail varchar(40) NOT NULL,";
-    $sql .= "youBirth int(8) NOT NULL,";
-    $sql .= "youAddress varchar(80) NOT NULL,";
-    $sql .= "youImgFile varchar(100) DEFAULT NULL,";
-    $sql .= "youImgSize varchar(100) DEFAULT NULL,";
-    $sql .= "memberDelete BOOLEAN DEFAULT 1,";
-    $sql .= "regTime int(20) NOT NULL,";
-    $sql .= "PRIMARY KEY(myMemberID)";
-    $sql .= ") charset=utf8;"; 
-    
-    $result = $connect -> query($sql);
-?>
+취중진담"은 술과 음료에 대한 정보를 공유하는 커뮤니티 사이트로, PHP를 활용하여 구축되었습니다. 사용자들은 다양한 종류의 술에 대한 추천과 리뷰를 공유하고, 다른 회원들과 소통할 수 있는 플랫폼입니다. 또한, 사용자들은 개인 술 일지를 작성하여 음주 습관과 주기를 파악하고 관리할 수 있습니다.
 
-변경 사항
+이 사이트는 술을 즐기는 사람들에게 중요한 정보를 제공하는 중심지로, 사용자들이 술 문화를 더 깊이 이해하고 즐길 수 있도록 돕습니다. 다양한 정보 제공을 통해 사용자들의 술을 즐기는 경험을 향상시키는 것을 목표로 제작했습니다.
 
-1. youNick의 글자 제한수를 10으로 늘림
+# 제작 과정
 
-2) drinkBoard (게시글 테이블)
+우리 팀은 수업에서 배운 PHP 블로그 제작을 기반으로, "취중진담"이라는 신규 커뮤니티 웹사이트를 성공적으로 개발하였습니다. 이 프로젝트는 PHP를 주요 언어로 사용하였으며, 팀원들과의 효율적인 협업을 통해 웹 개발 기술을 향상시키고 팀워크의 가치를 체감할 수 있었습니다. "취중진담" 프로젝트를 통해, 우리는 PHP 웹 개발 능력뿐만 아니라 프로그래밍, 데이터베이스 관리, 웹 디자인에 대한 중요성을 깊이 이해할 수 있었습니다. 프로젝트 초기에는 여러 어려움을 겪었지만, 팀원들과의 원활한 소통과 협력을 통해 성공적으로 마무리할 수 있었습니다.
 
-<?php
-    include "../connect/connect.php";
-
-    $sql = "CREATE TABLE drinkBoard (";
-    $sql .= "boardId int(10) unsigned auto_increment,";
-    $sql .= "myMemberId int(10) unsigned NOT NULL,";
-    $sql .= "boardCategory varchar(10) NOT NULL,";
-    $sql .= "boardTitle varchar(255) NOT NULL,";
-    $sql .= "boardContents longtext NOT NULL,";
-    $sql .= "boardAuthor varchar(10) NOT NULL,";
-    $sql .= "boardView int(100) NOT NULL,";
-    $sql .= "boardLike int(100) NOT NULL,";
-    $sql .= "boardComment int(100) NOT NULL,";
-    $sql .= "boardImgFile varchar(100) DEFAULT NULL,";
-    $sql .= "boardImgSize varchar(100) DEFAULT NULL,";
-    $sql .= "boardDelete int(10) DEFAULT 1,";
-    $sql .= "regTime int(40) NOT NULL,";
-    $sql .= "PRIMARY KEY (boardId)";
-    $sql .= ") charset=utf8";
-
-    $connect -> query($sql);
-?>
-
-변경 사항
-
-1. memberId > myMemberId로 변경
-2. boardRegTime 위치를 PRIMARY KEY 위로 통일
-
-3) drinkComments (알코올 리뷰 + 보드 댓글 테이블)
-
-<?php
-    include "../connect/connect.php";
-
-    $sql = "CREATE TABLE drinkComment (";
-    $sql .= "commentId int(10) unsigned auto_increment,";
-    $sql .= "myMemberId int(10) unsigned NOT NULL,";
-    $sql .= "boardId int(10) NOT NULL,";
-    $sql .= "commentCategory varchar(10) NOT NULL,";
-    $sql .= "commentName varchar(20) NOT NULL,";
-    $sql .= "commentPass varchar(20) NOT NULL,";
-    $sql .= "commentMsg varchar(225) NOT NULL,";
-    $sql .= "commentDelete int(10) DEFAULT 1";
-    $sql .= "regTime int(20) NOT NULL,";
-    $sql .= "PRIMARY KEY (commentId)";
-    $sql .= ") charset=utf8";
-
-    $connect -> query($sql);
-?>
-
-변경 사항
-
-1. drinkComment로 통일
-2. commentCategory 추가
-3. commentDelete int(10) DEFAULT 1로 합침
-
-4) drinkLikes (좋아요 테이블)
-
-<?php
-    include "../connect/connect.php";
-
-    $sql = "CREATE TABLE drinkLikes (";
-    $sql .= "likeId int(10) unsigned auto_increment,";
-    $sql .= "myMemberId int(10) unsigned NOT NULL,";
-    $sql .= "boardId int(10) NOT NULL,";
-    $sql .= "likeCategory varchar(10) NOT NULL,";
-    $sql .= "likeDelete int(10) DEFAULT 1,";
-    $sql .= "regTime int(40) NOT NULL,";
-    $sql .= "PRIMARY KEY (likeId)";
-    $sql .= ") charset=utf8";
-
-    $connect -> query($sql);
-?>
-
-변경 사항
-
-1. drinkLikes 로 drink 들어가게 맞춤
-2. 모든 곳에서 공통으로 사용할 것이기 때문에 likeCategory 추가
-
-5) drinkList 변경사항X
-
-<?php
-    include "../connect/connect.php";
-
-    $sql = "CREATE TABLE drinkList (";
-    $sql .= "acId int(10) unsigned auto_increment,";
-    $sql .= "acCategory varchar(10) NOT NULL,";
-    $sql .= "acImgPath varchar(255) NOT NULL,";
-    $sql .= "acName varchar(40) NOT NULL,";
-    $sql .= "acCompany varchar(20) NOT NULL,";
-    $sql .= "acDesc longtext NOT NULL,";
-    $sql .= "acView int(100) NOT NULL,";
-    $sql .= "acLike int(100) NOT NULL,";
-    $sql .= "acComment int(100) NOT NULL,";
-    $sql .= "acAbv float NOT NULL,";
-    $sql .= "acDelete int(10) DEFAULT 1,";
-    $sql .= "PRIMARY KEY (acId)";
-    $sql .= ") charset=utf8";
-
-    $connect -> query($sql);
-?>
+물론, PHP 웹 개발 과정에서는 보안, 데이터베이스 관리, 성능 최적화 등 여러 고려사항을 극복해야 했으며, 이를 통해 중요한 경험을 얻었습니다. 사용자 피드백을 수용하고 기능을 지속적으로 개선함으로써, 웹 개발 분야에서의 지속적인 성장의 필요성을 깨달았습니다. "취중진담"은 술 문화에 대한 소통과 정보 공유를 촉진하는 플랫폼으로, 사용자들이 술 문화를 더 깊이 이해하고 즐길 수 있도록 도움을 주었습니다. 이 프로젝트를 통해, 웹 개발의 복잡성을 이해하고, 협업 및 문제 해결 능력을 향상시키는 소중한 경험을 얻었습니다.
