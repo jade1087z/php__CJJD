@@ -1,6 +1,6 @@
 # 메인페이지 미리보기
 
-<img src="./assets/img/mainpage.png" alt="">
+<img src="./assets/img/mainpage.png" alt="a">
 
 # 사이트 소개
 
